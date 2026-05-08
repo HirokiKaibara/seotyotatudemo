@@ -1,0 +1,74 @@
+.reflectRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 16px;
+}
+
+.reflectRow button {
+  min-height: 40px;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0 18px;
+}
+
+.reflectRow button:hover {
+  background: var(--primary-hover);
+}
+
+.debugPanel {
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  padding: 10px;
+}
+
+.debugTitle {
+  margin-bottom: 6px;
+  color: var(--heading);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.debugScroll {
+  max-height: 112px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+  padding: 6px 8px;
+}
+
+.debugScroll p,
+.windowNote {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.debugScroll span {
+  display: inline-block;
+  width: 24px;
+  color: var(--heading);
+  font-weight: 700;
+}
+
+.windowNote {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 720px) {
+  .reflectRow {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .reflectRow button {
+    width: 100%;
+  }
+}
