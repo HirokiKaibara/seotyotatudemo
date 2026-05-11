@@ -360,6 +360,15 @@ tbody tr:hover td {
   line-height: 1.7;
 }
 
+.source-label {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--primary);
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+}
+
 @media (max-width: 980px) {
   .content-grid {
     grid-template-columns: 1fr 1fr;

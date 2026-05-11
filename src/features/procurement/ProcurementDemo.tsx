@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { existingEstimateRows } from "../../../sample/existing-estimate-rows";
 import type {
   ComparisonResult,
@@ -41,6 +41,7 @@ export function ProcurementDemo({
   const [hasDisplayed, setHasDisplayed] = useState(false);
   const [estimateRows, setEstimateRows] =
     useState<ExistingEstimateRow[]>(existingEstimateRows);
+  const isOffline = useOfflineDemoMode();
 
   const latestStainlessPrice = getPriceByOffset(stainlessDailyPrices, 1);
   const previousStainlessPrice = getPriceByOffset(stainlessDailyPrices, 2);
@@ -105,6 +106,7 @@ export function ProcurementDemo({
     `過去購買実績: ${purchaseRecords.length}件`,
     `類似実績抽出結果: ${selectedRecords.length}件`,
     `下部表示: ${hasDisplayed ? "表示中" : "反映ボタン待ち"}`,
+    `通信状態: ${isOffline ? "未接続時デモモード" : "通常デモモード"}`,
   ];
 
   return (
@@ -146,6 +148,7 @@ export function ProcurementDemo({
         <MarketSection
           hasDisplayed={hasDisplayed}
           indicators={displayedMarketIndicators}
+          isOffline={isOffline}
         />
         <ComparisonSection
           comparisonResult={comparisonResult}
@@ -163,6 +166,29 @@ export function ProcurementDemo({
       />
     </main>
   );
+}
+
+function useOfflineDemoMode(): boolean {
+  const [isOffline, setIsOffline] = useState(false);
+
+  useEffect(() => {
+    const updateNetworkState = () => {
+      const forcedOffline =
+        new URLSearchParams(window.location.search).get("offline") === "1";
+      setIsOffline(forcedOffline || navigator.onLine === false);
+    };
+
+    updateNetworkState();
+    window.addEventListener("online", updateNetworkState);
+    window.addEventListener("offline", updateNetworkState);
+
+    return () => {
+      window.removeEventListener("online", updateNetworkState);
+      window.removeEventListener("offline", updateNetworkState);
+    };
+  }, []);
+
+  return isOffline;
 }
 
 function getPriceByOffset(

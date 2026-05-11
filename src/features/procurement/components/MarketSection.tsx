@@ -5,9 +5,14 @@ import { EmptyState } from "./Shared";
 type MarketSectionProps = {
   hasDisplayed: boolean;
   indicators: RawMaterialIndicator[];
+  isOffline: boolean;
 };
 
-export function MarketSection({ hasDisplayed, indicators }: MarketSectionProps) {
+export function MarketSection({
+  hasDisplayed,
+  indicators,
+  isOffline,
+}: MarketSectionProps) {
   const showsRelatedMaterial = indicators.some(
     (indicator) => indicator.relatedMaterial,
   );
@@ -46,13 +51,19 @@ export function MarketSection({ hasDisplayed, indicators }: MarketSectionProps) 
                   <td>{indicator.previousChange}</td>
                   <td>{indicator.acquiredDate}</td>
                   <td>
-                    <a
-                      href={indicator.sourceUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {indicator.sourceName}
-                    </a>
+                    {isOffline ? (
+                      <span className="source-label">
+                        {indicator.sourceName}
+                      </span>
+                    ) : (
+                      <a
+                        href={indicator.sourceUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {indicator.sourceName}
+                      </a>
+                    )}
                   </td>
                 </tr>
               ))}
