@@ -246,28 +246,32 @@ table.compact-table {
 }
 
 table.market-table {
+  min-width: 900px;
   table-layout: fixed;
 }
 
-.market-table th:nth-child(1) {
-  width: 17%;
+.market-table .market-item-cell {
+  width: 118px;
 }
 
-.market-table th:nth-child(2) {
-  width: 24%;
+.market-table .market-material-cell {
+  width: 168px;
 }
 
-.market-table th:nth-child(3) {
-  width: 18%;
+.market-table .market-value-cell {
+  width: 150px;
 }
 
-.market-table th:nth-child(4),
-.market-table th:nth-child(5) {
-  width: 12%;
+.market-table .market-change-cell {
+  width: 88px;
 }
 
-.market-table th:nth-child(6) {
-  width: 17%;
+.market-table .market-date-cell {
+  width: 126px;
+}
+
+.market-table .market-source-cell {
+  width: 150px;
 }
 
 .market-table td,
